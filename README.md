@@ -29,7 +29,7 @@ The result of this project is to have a security monitoring environment that cap
 
 ## Full Technical and decisional breakdown
 
-(Put link here)
+[Read My Full Thinking Breakdown](Thinking-Breakdown.md)
 
 ## IMPORTANT DISCLAIMER
 
