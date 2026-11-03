@@ -1,7 +1,8 @@
 # Azure-Soc-Homelab
 
 Project Overview:
-<img width="904" height="583" alt="Azure SOC Lab Layout" src="https://github.com/user-attachments/assets/5282192d-b06e-454a-a4a3-d48bdc556160" />
+<img width="894" height="605" alt="image" src="https://github.com/user-attachments/assets/6882c519-367b-40a4-a932-1de96573c607" />
+
 
 
 Thinking Breakdown:
