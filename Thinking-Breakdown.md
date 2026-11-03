@@ -1,11 +1,11 @@
 # Azure-Soc-Homelab
 
-Project Overview:
+## Project Overview:
 <img width="894" height="605" alt="image" src="https://github.com/user-attachments/assets/6882c519-367b-40a4-a932-1de96573c607" />
 
 
 
-Thinking Breakdown:
+## Thinking Breakdown:
 
 Firstly I wanted to explain the entire point of this project, I wanted to build SOC on Azure with real attackers and logging via LAW (Log Analytics Workspaces) and Microsoft Sentinel as well as microsoft defender since many of the Sentinel tools are now on defender.
 
