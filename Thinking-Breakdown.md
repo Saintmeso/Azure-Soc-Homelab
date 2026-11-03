@@ -33,6 +33,10 @@ The reasoning behind this is that I wanted everyone and everything to see that t
 
 Now in an enterprise environment, this should NEVER be done, this is solely for testing because this vm is a honeypot and nothing else.
 
+When you expose RDP while also disabling the windows firewall, its as if you have a door frame with no door in it, so realistically people can walk right through, but in this case we just have a really weak lock which is just the login needed rather than a security rule that blocks RDP for specific locations.
+
+I say "weak lock" but its still an authentication method, althrough its suspetable to password guessing and automated scanning.
+
 After applying the NSG rule and opening the NSG and effectively making it ineffective, I RDP'd into my Windows 11 VM to turn off the Windows Defnder Firewall Profiles,
 To do this simply after RDP'ing into the VM, I typed wf.msc and it took to its firewall settings. I then when and turned off each profile to make this VM even more enticing to attack. (I didn't take a Screenshot of every single tab but each tab was disabled)
 
@@ -42,7 +46,7 @@ After turning off the Windows firewall, I wanted to ensure the VM was pingable f
 
 <img width="1113" height="431" alt="Azure SOC Ping VM" src="https://github.com/user-attachments/assets/c20fd330-d04b-4ee6-b5c0-5bfb8659cf8c" />
 
-As you can see, we were getting a response from our VM, which means the NSG and WF (Windows Firewall) was fully disabled.
+As you can see, the ping shows that ICMP traffic is allowed through the network between my local machine and the vm.
 
 After pinging my VM and ensuring it can communicate with my pc, I then created the Log Analytics Workspace.
 
@@ -58,6 +62,8 @@ Now currently our Microsoft Sentinel and VM are not connected to each other so w
 
 
 <img width="1276" height="1186" alt="Azure SOC WSE via AMA" src="https://github.com/user-attachments/assets/58ebcd1e-c045-4884-b3ed-f8327729164f" />
+
+I wanted to explain as well why I decided to use AMA rather than something like Log Analytics agent and its mainly becuase the Log Analytics agent is now retired and microsoft recommends to use AMA instead.
 
 To verify that it was correctly connected, I went to the VM and went to the Extentions and the connection was there as it was supposed to be.
 
@@ -84,6 +90,8 @@ _GetWatchlist("geoip")"
 
 I am able to get a log query where it shows the country in which these attacks are coming from.
 
+This works because the watchlist "geoip" holds a bunch of ip address ranges to specific locations around the world so when we use SecurityEvent, it'll show all the SecurityEvents curretnly happening with JUST the ip, but when I added _GetWatchlist("geoip") at the end, It then goes through the watchlist and then output the eventID's as well as the location associated with that specific Ip.
+
 <img width="2543" height="1248" alt="Azure SOC Location GeoIP" src="https://github.com/user-attachments/assets/7ab2201b-a101-445b-8be4-7c5345960497" />
 
 I think that facinating part about this is what when I was first being attacked, It was from South Korea, and the after a few minutes it was India, then Russia and then all over the world.
@@ -98,10 +106,12 @@ For this, I used a JSON template that took information such as the Longitude, La
 
 I had the map query eventID 4625 which is failed Login Attempts within Windows.
 
+I mainly focused on WSE (Windows Security Event logs) because that was the main method of entry for attackers, since RDP is directly accessing the VM, it would mainly be recieveing windows event logs. I chose EventID 4625 because that was the failed login eventID. This let me see the unsuccessful login attempts, seee their source IP addresses and then map their geographic locations.
 
 <img width="862" height="427" alt="Azure SOC Lab map Done  event 4625" src="https://github.com/user-attachments/assets/bf710a9c-ab60-4397-bc7b-71a9ddc2fe26" />
 
 As you can see, most of these attacks with the EventID 4625 came from Brisbane, Australia and Newport, United States.
 
 If I had used another EventID, I would've gotten results from different countrys but for the sake of documentation, I only covered one EventID.
+
 
