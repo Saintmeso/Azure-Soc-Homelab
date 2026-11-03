@@ -1,6 +1,7 @@
 # Azure SOC Homelab - Honeypot, Microsoft Sentinel / Defender & GeoIP Attack Visualization
 
-<img width="904" height="583" alt="Azure SOC Lab Layout" src="https://github.com/user-attachments/assets/a1432d09-ac42-4180-a791-1bfd9c1c889f" />
+<img width="894" height="605" alt="Azure SOC Lab layout updated" src="https://github.com/user-attachments/assets/7e124c47-3374-4641-bac0-0bc4c8b85724" />
+
 
 ## Project Overview
 Built a cloud-based SOC lab in Azure using a publicly exposed Windows 11 honeypot to capture real-world authentication attempts, collect Windows Security Events, and investigate suspicious activity using Microsoft Sentinel.
